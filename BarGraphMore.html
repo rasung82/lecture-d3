@@ -32,12 +32,10 @@
 
     d3.json('data/data4.json')
       .then((data) => {
-        console.log(data);
-
         const x = d3.scaleBand()
           .domain(data.map(item => item.지역이름))
           .range([0, graphWidth])
-          .padding(0.1)
+          .padding(0.25)
 
         const y = d3.scaleLinear()
           .domain([0, d3.max(data, d => d.확진자수)])
@@ -49,7 +47,7 @@
           .attr('width', x.bandwidth)
           .attr('height', d => graphHeight - y(d.확진자수))
           .attr('x', d => x(d.지역이름))
-          .attr('y', d => x(d.확진자수))
+          .attr('y', d => y(d.확진자수))
           .attr('fill', 'hotpink')
 
       })
@@ -57,27 +55,6 @@
         console.log('Error occurred while loading data.')
         console.error(err)
       })
-
-
-
-    // const sampleData = [100, 10, 30, 50, 10, 70, 200, 90];
-    // const svg = d3.select('svg');
-
-    // sampleData.forEach((data, index) => {
-    //   svg.append('rect')
-    //     .attr('height', data)
-    //     .attr('width', 30)
-    //     .attr('x', 40 * index)
-    //     .attr('y', 300 - data)
-    //     .attr('fill', 'red')
-
-    //   svg.append('text')
-    //     .attr('x', 40 * index + 3)
-    //     .attr('y', 300 - data - 5)
-    //     .text(data)
-    //     .style('font-size', '0.85em')
-    //     .style('color', '#222')
-    // })
   </script>
 
 </body>
