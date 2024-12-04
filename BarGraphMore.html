@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D3 - BarGraph </title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+  <h1>확진자수 현황</h1>
+  <div class="canvas"></div>
+  <script>
+    const width = 800;
+    const height = 800;
+    let [mt, mb, mr, ml] = [20, 20, 20, 20];
+
+    const graphWidth = width - mr - ml;
+    const graphHeight = height - mt - mb;
+
+    const svg = d3.select('.canvas')
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+
+    const graph = svg.append('g')
+      .attr('width', graphWidth)
+      .attr('height', graphHeight)
+      .attr('translate', `translate(${ml}, ${mt})`)
+
+
+    d3.json('data/data4.json')
+      .then((data) => {
+        console.log(data);
+
+        const x = d3.scaleBand()
+          .domain(data.map(item => item.지역이름))
+          .range([0, graphWidth])
+          .padding(0.1)
+
+        const y = d3.scaleLinear()
+          .domain([0, d3.max(data, d => d.확진자수)])
+          .range([graphHeight, 0])
+
+        const bars = graph.selectAll('rect').data(data)
+        bars.enter()
+          .append('rect')
+          .attr('width', x.bandwidth)
+          .attr('height', d => graphHeight - y(d.확진자수))
+          .attr('x', d => x(d.지역이름))
+          .attr('y', d => x(d.확진자수))
+          .attr('fill', 'hotpink')
+
+      })
+      .catch((err) => {
+        console.log('Error occurred while loading data.')
+        console.error(err)
+      })
+
+
+
+    // const sampleData = [100, 10, 30, 50, 10, 70, 200, 90];
+    // const svg = d3.select('svg');
+
+    // sampleData.forEach((data, index) => {
+    //   svg.append('rect')
+    //     .attr('height', data)
+    //     .attr('width', 30)
+    //     .attr('x', 40 * index)
+    //     .attr('y', 300 - data)
+    //     .attr('fill', 'red')
+
+    //   svg.append('text')
+    //     .attr('x', 40 * index + 3)
+    //     .attr('y', 300 - data - 5)
+    //     .text(data)
+    //     .style('font-size', '0.85em')
+    //     .style('color', '#222')
+    // })
+  </script>
+
+</body>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3 - ScalePoint</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+    <script>
+        /**
+         * 테이터가 화면에 표시될 때 데이터 정규화 작업이 필요
+         * 크기를 변경하는 작업을 정규화라고 한다.
+         * 
+         * domina은 변환 전 값이고 range는 변환 후 값의 범위이다.
+         * 
+         * scalePoint : 간격에 맞게 값을 변경해준다.
+         */
+        const f1 = d3.scalePoint().range([0, 100])
+            .domain([10, 12, 20, 30, 40])
+        console.log(f1(20))
+
+        const f2 = d3.scalePoint().range([0, 100])
+            .domain(['a', 'b', 'c', 'd'])
+        console.log(f2('c'))
+
+        /**
+         * padding이 붙었을 경우 각 원소의 간격에
+         * padding을 곱하여 양쪽 여백을 줌
+         */
+        const f3 = d3.scalePoint().range([0, 100])
+            .domain(['a', 'b', 'c', 'd'])
+            .padding(0.3)
+        console.log(f3('c'))
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3 - ScaleLinear</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+    <script>
+        const f1 = d3.scaleLinear()
+            .range([0, 100])
+            .domain([0, 500])
+        console.log(f1(250))
+        console.log(f1(0))
+        console.log(f1(500))
+        console.log(f1(100))
+        console.log(f1(1000))
+
+        crayons = d3.scaleLinear()
+            .range(['orange', 'white', 'green'])
+            .domain([-1, 0, 1]);
+        console.log(crayons(0.3));
+
+        const f2 = d3.scaleLinear()
+            .range([200, 500])
+            .domain([2000000, 5000000]);
+
+        console.log(f2(2500000))
+
+    </script>
+</body>
+
+</html>

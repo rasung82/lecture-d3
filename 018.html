@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3 - min,max, extent, mean</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+    <script>
+        data1 = [10, 20, 30]
+        data2 = [{
+            age: 10,
+            power: 3000
+        }, {
+            age: 20,
+            power: 2000
+        }, {
+            age: 30,
+            power: 1000
+        }]
+
+        // 최소 값
+        const min1 = d3.min(data1);
+        const min2 = d3.min(data2, d => d.age);
+
+        // 최대 값
+        const max1 = d3.max(data1);
+        const max2 = d3.max(data2, d => d.age);
+
+        // 최소 값, 최대 값
+        const extend1 = d3.extent(data1);
+        const extend2 = d3.extent(data2, d => d.power)
+        console.log(extend1, extend2)
+
+    </script>
+</body>
+
+</html>
