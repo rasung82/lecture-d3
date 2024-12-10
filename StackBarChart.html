@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D3 - StackBarGraph </title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<!-- https://codepen.io/wp22/pen/dyydGda -->
+<!-- https://dusanbaek.tistory.com/65 -->
+
+<body>
+  <h1>Horizontal Stacked Bar Chart</h1>
+  <div class="canvas"></div>
+  <script>
+    const width = 800;
+    const height = 500;
+    let [mt, mb, mr, ml] = [50, 50, 50, 50];
+
+    const svg = d3.select('.canvas')
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+
+    const graphWidth = width - mr - ml;
+    const graphHeight = height - mb - mt;
+
+    const graph = svg.append('g')
+      .attr('width', graphWidth)
+      .attr('height', graphHeight)
+      .attr('transform', `translate(${ml}, ${mt})`);
+
+    const xAxisG = graph.append("g")
+      .attr('class', 'x-axis')
+      .attr('transform', `translate(0, ${graphHeight})`);
+    const yAxisG = graph.append("g")
+      .attr('class', 'y-axis');
+
+    // Indicate the x-axis label 
+    graph.append("text")
+      .attr("text-anchor", "end")
+      .attr("x", graphWidth)
+      .attr("y", graphHeight + 40)
+      .attr("font-size", 17)
+      .text("Share of people (%)")
+
+    d3.json('data/data6.json')
+      .then((data) => {
+        console.log(data);
+
+        // Create a scale for x-axis 
+        const x = d3.scaleLinear()
+          .domain([0, 15])
+          .range([0, graphWidth]);
+
+        // Create a scale for y-axis
+        const y = d3.scaleBand()
+          .domain(data.map(d => d.name))
+          .range([0, graphHeight])
+          .padding(0.2);
+
+
+        // Define the position of each axis
+        const xAxis = d3.axisBottom(x);
+        const yAxis = d3.axisLeft(y);
+
+        // Draw axis
+        xAxisG.call(xAxis);
+        yAxisG.call(yAxis);
+
+        // Define a scale for color 
+        // const cScale
+        // Define a scale for color 
+        const colorScale = d3.scaleOrdinal()
+          .domain(["countEd", "countPacu", "countTest"])
+          .range(['#7bccc4', '#2b8cbe', '#F47725']);
+
+        const stackedData = d3.stack().keys(["countEd", "countPacu", "countTest"])(
+          data.map(d => {
+            return {
+              name: d.name,
+              countEd: d.countEd,
+              countPacu: d.countPacu,
+              countTest: d.countTest
+            }
+          })
+        );
+        console.log(stackedData);
+
+        // Draw the bars
+        graph.selectAll('.bar')
+          .data(stackedData)
+          .enter()
+          .append('g')
+          .attr('class', 'bar')
+          .attr('fill', d => colorScale(d.key))
+          .selectAll('rect')
+          .data(d => d)
+          .enter()
+          .append('rect')
+          .attr('x', d => x(d[0]))
+          .attr('y', d => y(d.data.name))
+          .attr('width', d => x(d[1]) - x(d[0]))
+          .attr('height', y.bandwidth());
+
+        graph.selectAll('.label')
+          .data(data)
+          .enter()
+          .append('text')
+          .text(d => `${parseInt(d.countEd)}`)
+          .attr('x', d => x(parseFloat(d.countEd)))
+          .attr('y', d => y(d.name) + y.bandwidth() / 2)
+          .attr('dx', -5)
+          .attr('dy', '0.35em')
+          .attr('font-size', 14)
+          .attr('text-anchor', 'end')
+          .attr('fill', 'black');
+
+        graph.selectAll('.label')
+          .data(data)
+          .enter()
+          .append('text')
+          .text(d => `${parseInt(d.countPacu)}`)
+          .attr('x', d => x(parseFloat(d.countEd)) + x(parseFloat(d.countPacu)))
+          .attr('y', d => y(d.name) + y.bandwidth() / 2)
+          .attr('dx', -5)
+          .attr('dy', '0.35em')
+          .attr('font-size', 14)
+          .attr('text-anchor', 'end')
+          .attr('fill', 'black');
+
+      })
+  </script>
+
+</body>

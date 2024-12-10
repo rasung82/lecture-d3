@@ -1,0 +1,44 @@
+[
+  {
+    "id": "MED_SURG",
+    "name": "Med/Surg",
+    "countEd": 6,
+    "countPacu": 5,
+    "countTest": 4
+  },
+  {
+    "id": "ICU",
+    "name": "ICU",
+    "countEd": 5,
+    "countPacu": 2,
+    "countTest": 5
+  },
+  {
+    "id": "SPI_INICU",
+    "name": "Spine/INICU",
+    "countEd": 1,
+    "countPacu": 2,
+    "countTest": 1
+  },
+  {
+    "id": "INT",
+    "name": "Intermediate",
+    "countEd": 3,
+    "countPacu": 4,
+    "countTest": 3
+  },
+  {
+    "id": "TELE",
+    "name": "Tele",
+    "countEd": 1,
+    "countPacu": 1,
+    "countTest": 5
+  },
+  {
+    "id": "SPEC",
+    "name": "Specialty",
+    "countEd": 2,
+    "countPacu": 1,
+    "countTest": 6
+  }
+]

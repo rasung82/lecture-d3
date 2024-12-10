@@ -1,0 +1,96 @@
+[
+  {
+    "data": [
+      {
+        "target": {
+          "id": "MED_SURG",
+          "name": "Med/Surg"
+        },
+        "count": 6
+      },
+      {
+        "target": {
+          "id": "ICU",
+          "name": "ICU"
+        },
+        "count": 5
+      },
+      {
+        "target": {
+          "id": "SPI_INICU",
+          "name": "Spine/INICU"
+        },
+        "count": 1
+      },
+      {
+        "target": {
+          "id": "INT",
+          "name": "Intermediate"
+        },
+        "count": 3
+      },
+      {
+        "target": {
+          "id": "TELE",
+          "name": "Tele"
+        },
+        "count": 1
+      },
+      {
+        "target": {
+          "id": "SPEC",
+          "name": "Specialty"
+        },
+        "count": 0
+      }
+    ],
+    "source": "ED"
+  },
+  {
+    "data": [
+      {
+        "target": {
+          "id": "MED_SURG",
+          "name": "Med/Surg"
+        },
+        "count": 5
+      },
+      {
+        "target": {
+          "id": "ICU",
+          "name": "ICU"
+        },
+        "count": 2
+      },
+      {
+        "target": {
+          "id": "SPI_INICU",
+          "name": "Spine/INICU"
+        },
+        "count": 4
+      },
+      {
+        "target": {
+          "id": "INT",
+          "name": "Intermediate"
+        },
+        "count": 0
+      },
+      {
+        "target": {
+          "id": "TELE",
+          "name": "Tele"
+        },
+        "count": 1
+      },
+      {
+        "target": {
+          "id": "SPEC",
+          "name": "Specialty"
+        },
+        "count": 0
+      }
+    ],
+    "source": "PACU"
+  }
+]
